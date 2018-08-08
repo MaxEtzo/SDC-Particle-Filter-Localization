@@ -52,7 +52,7 @@ public:
 
 	/**
 	 * init Initializes particle filter by initializing particles to Gaussian
-	 *   distribution around first position and all the weights to 1.
+	 *   distribution around first position and all the weights to 
 	 * @param x Initial x position [m] (simulated estimate from GPS)
 	 * @param y Initial y position [m]
 	 * @param theta Initial orientation [rad]
@@ -73,12 +73,12 @@ public:
 	void prediction(double delta_t, double std_pos[], double velocity, double yaw_rate);
 	
 	/**
-	 * dataAssociation Finds which observations correspond to which landmarks (likely by using
-	 *   a nearest-neighbors data association).
-	 * @param predicted Vector of predicted landmark observations
-	 * @param observations Vector of landmark observations
+	 * errorAssociation Associates observations landmarks based on minimum Mahalanobis Distance, and returns accumulated error for all observations 
+	 * @param std standard deviation in x and y in global coordinate system 
+	 * @param landmarks Vector of nearby landmarks in global coordinate system 
+	 * @param observations Vector of landmark observations in global coordinate system
 	 */
-	void dataAssociation(std::vector<LandmarkObs> predicted, std::vector<LandmarkObs>& observations);
+	double errorAssociation(double std[], std::vector<LandmarkObs> landmarks, std::vector<LandmarkObs> observations);
 	
 	/**
 	 * updateWeights Updates the weights for each particle based on the likelihood of the 
